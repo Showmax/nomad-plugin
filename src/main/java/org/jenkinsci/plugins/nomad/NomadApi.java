@@ -127,6 +127,12 @@ public final class NomadApi {
                 driverConfig.put("devices", parseDeviceMappings(StringUtils.split(hostDevices, ",")));
             }
 
+            String shmSize = template.getSharedMemory();
+            if (!shmSize.isEmpty()) {
+                // if not defined, keep it unspecified for default value
+                driverConfig.put("shm_size", Double.parseDouble(shmSize));
+            }
+
             driverConfig.put("args", args);
             driverConfig.put("force_pull", template.getForcePull());
             driverConfig.put("privileged", template.getPrivileged());
